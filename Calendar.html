@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2024 Calendar</title>
+  <style>
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      grid-template-rows: auto repeat(6, 1fr);
+      gap: 1px;
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+    .month {
+      font-size: 24px;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .day {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+      font-weight: bold;
+    }
+    .current-day {
+      background-color: #ffcccc; /* Highlight color for current day */
+      border-radius: 50%;
+    }
+    /* Define unique colors for each number */
+    .day[data-day="1"] { background-color: #ff9999; }
+    .day[data-day="2"] { background-color: #99ff99; }
+    .day[data-day="3"] { background-color: #9999ff; }
+    .day[data-day="4"] { background-color: #ffff99; }
+    .day[data-day="5"] { background-color: #ff99ff; }
+    .day[data-day="6"] { background-color: #99ffff; }
+    .day[data-day="7"] { background-color: #ffcc99; }
+    .day[data-day="8"] { background-color: #cc99ff; }
+    .day[data-day="9"] { background-color: #99ffcc; }
+    .day[data-day="10"] { background-color: #ffccff; }
+    .day[data-day="11"] { background-color: #ccff99; }
+    .day[data-day="12"] { background-color: #99ccff; }
+    .day[data-day="13"] { background-color: #ff9966; }
+    .day[data-day="14"] { background-color: #6699ff; }
+    .day[data-day="15"] { background-color: #ff66cc; }
+    .day[data-day="16"] { background-color: #66ffcc; }
+    .day[data-day="17"] { background-color: #cc66ff; }
+    .day[data-day="18"] { background-color: #66ccff; }
+    .day[data-day="19"] { background-color: #ff6600; }
+    .day[data-day="20"] { background-color: #66ff99; }
+    .day[data-day="21"] { background-color: #9900ff; }
+    .day[data-day="22"] { background-color: #00ff99; }
+    .day[data-day="23"] { background-color: #cc00ff; }
+    .day[data-day="24"] { background-color: #00ccff; }
+    .day[data-day="25"] { background-color: #ff3300; }
+    .day[data-day="26"] { background-color: #00ff66; }
+    .day[data-day="27"] { background-color: #6600ff; }
+    .day[data-day="28"] { background-color: #00ff00; }
+    .day[data-day="29"] { background-color: #ff00ff; }
+    .day[data-day="30"] { background-color: #00ffff; }
+    .day[data-day="31"] { background-color: #ff0000; }
+  </style>
+</head>
+<body>
+
+<h1>2024 Calendar</h1>
+
+<div id="calendar" class="calendar"></div>
+
+<div class="credit">Designed by Elizabeth Eunice Ndzukule</div>
+
+<script>
+  // Get the current date
+  const currentDate = new Date();
+
+  // Get the current year and month
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth();
+
+  // Month names array
+  const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+  // Day names array
+  const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+  // Create a new date for the first day of the current month
+  const firstDayOfMonth = new Date(currentYear, currentMonth, 1);
+
+  // Get the day of the week for the first day of the month (0 - Sunday, 1 - Monday, ..., 6 - Saturday)
+  const firstDayOfWeek = firstDayOfMonth.getDay();
+
+  // Get the number of days in the current month
+  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+  // Get a reference to the calendar container
+  const calendarContainer = document.getElementById("calendar");
+
+  // Create a month element and display the month name
+  const monthElement = document.createElement("div");
+  monthElement.classList.add("month");
+  monthElement.textContent = monthNames[currentMonth];
+  calendarContainer.appendChild(monthElement);
+
+  // Loop through each day of the week and display day names
+  for (let i = 0; i < 7; i++) {
+    const dayNameElement = document.createElement("div");
+    dayNameElement.classList.add("day");
+    dayNameElement.textContent = dayNames[i];
+    calendarContainer.appendChild(dayNameElement);
+  }
+
+  // Loop through each day of the month
+  for (let i = 0; i < daysInMonth; i++) {
+    // Create a new date object for the current day
+    const currentDate = new Date(currentYear, currentMonth, i + 1);
+
+    // Create a new day element
+    const dayElement = document.createElement("div");
+    dayElement.classList.add("day");
+    dayElement.dataset.day = i + 1; // Set the data-day attribute to the day of the month
+
+    // Set the text content of the day element to the day of the month
+    dayElement.textContent = i + 1;
+
+    // Check if the current day is today
+    if (currentDate.toDateString() === new Date().toDateString()) {
+      dayElement.classList.add("current-day");
+    }
+
+    // Append the day element to the calendar container
+    calendarContainer.appendChild(dayElement);
+  }
+</script>
+
+</body>
+</html>
